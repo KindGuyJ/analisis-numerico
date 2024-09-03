@@ -27,7 +27,7 @@ public:
             return data[row][col];
         } else {
             cout << "Índice fuera de rango" << endl;
-            return -1; // Puedes definir un valor de retorno adecuado
+            return -1;
         }
     }
 
