@@ -14,7 +14,7 @@ int main(){
     matrix mat(n);
 
     //ingresando
-    cout<<"Ingresar matriz por filas";
+    cout<<"Ingresar matriz por filas\n";
     for (int i=0;i<n;i++){
         for (int j = 0; j < n+1; j++)
         {
