@@ -10,6 +10,8 @@ vector<long double> seidel(matrix mat, int n);
 vector<long double> lalu(matrix mat, int n);
 void comparar(const vector<long double>& v1, const vector<long double>& v2);
 void printv(const vector<long double>& vec);
+bool verificar(const vector<long double>& vec, const matrix& mat);
+
 
 int main(){
     int n;
@@ -73,7 +75,7 @@ bool verificar(const vector<long double>& vec, const matrix& mat) {
         for (int j = 0; j < n; ++j) {
             sum += mat.get_value(i, j) * vec[j];
         }
-        if ((abs(sum)-mat.get_value(i,n+1))>tolerancia){
+        if ((abs(sum)-mat.get_value(i,n))>tolerancia){
             return false;
         };
     }
@@ -138,13 +140,13 @@ vector<long double> seidel(matrix mat, int n){
         }
         
         if (error < tolerancia) {
-            cout << "Convergencia alcanzada en " << it + 1 << " iteraciones." << endl;
+            cout << "Convergencia alcanzada en " << it + 1 << " iteraciones (Gauss-Seidel).\n\n" << endl;
             break;
         }
     }
     
     if (error >= tolerancia) {
-        cout << "El método no convergió en " << max_it << " iteraciones." << endl;
+        cout << "El método no convergió en " << max_it << " iteraciones (Gauss-Seidel).\n\n" << endl;
     }
 
     return x;
