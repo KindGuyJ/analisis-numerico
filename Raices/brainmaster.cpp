@@ -23,10 +23,10 @@ long double fd(long double x){
 }
 
 int main(){
-    long double* x[7];
-    bool s[7];
+    long double* x[6];
+    bool s[6];
 
-    for (int i = 0;i<7;i++) s[i]=true;
+    for (int i = 0;i<6;i++) s[i]=true;
 
     //intentar cada metodo
     try{
@@ -73,14 +73,14 @@ int main(){
         x[5] = secante();
     }
     catch(const char* e){
-        cerr << "Error en Secante por A: " << e << endl;
+        cerr << "Error en Secante: " << e << endl;
         s[5] = false;
     }
 
     //Imprimir resultados
     string methods[] = {"Biseccion", "Punto Fijo A", "Punto Fijo B", 
                         "Newton-Raphson A", "Newton-Raphson B", 
-                        "Secante A", "Secante B"};
+                        "Secante"};
 
     cout << fixed << setprecision(10);
     cout << left << setw(20) << "Metodo" 
