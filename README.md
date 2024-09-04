@@ -1,15 +1,15 @@
-# analisis-numerico
-Repositorio de los programas que voy haciendo para practicar analisis numerico en la facultad
+# Análisis Numérico
+Este repositorio contiene los programas que he desarrollado para practicar análisis numérico en la facultad.
 
-## Por que?
-No se pero me diverti y para no tener que pasar el codigo por whatsapp cuando me piden ayude hice esto
+## ¿Por qué?
+Principalmente, porque me divierto haciéndolo. Además, decidí crear este repositorio para compartir el código de manera más fácil, en lugar de enviarlo por WhatsApp cada vez que me piden ayuda.
 
 ## Autor
-Juan Ignacio Fernandez Favaron
+Juan Ignacio Fernández Favaron
 
-### Sources
-El materia teorico de las clases de analisis numerico
-Chat GTP para codigo tedioso cuando no le agarra la demencia
+### Fuentes
+- Material teórico de las clases de Análisis Numérico
+- ChatGPT, para ayudar con el código repetitivo o cuando me falta un poco de inspiración
 
-## PD
-Agregue cosas al readme porque estaba vacio y quedaba feo
+## Nota
+Agregué información al README para que no quedara vacío y se viera mejor.
