@@ -10,18 +10,31 @@ using namespace std;
 
 long double* biseccion();
 long double* puntofijosuma(long double x0);
+long double* newtonraphson(long double x0);
+long double* secante();
 
 long double f(long double x){
     return exp(-x)-x;
 }
 
+long double fd(long double x){
+    return -exp(-x)-1;
+    throw "derivada inexistente";
+}
+
 int main(){
-    long double* x[5];
+    long double* x[7];
+    bool s[7];
+
+    for (int i = 0;i<7;i++) s[i]=true;
+
+    //intentar cada metodo
     try{
         x[0] = biseccion();
     }
     catch(const char* e){
         cerr << "Error en biseccion: " << e << endl;
+        s[0] = false;
     }
 
     try{
@@ -29,8 +42,7 @@ int main(){
     }
     catch(const char* e){
         cerr << "Error en puntofijosuma por A: " << e << endl;
-        x[1] = new long double[3];
-        x[1][0] = 0;x[1][1] = 0;x[1][2] = 0;
+        s[1] = false;
     }
 
     try{
@@ -38,15 +50,52 @@ int main(){
     }
     catch(const char* e){
         cerr << "Error en puntofijosuma por B: " << e << endl;
-        x[2] = new long double[3];
-        x[2][0] = 0;x[2][1] = 0;x[2][2] = 0;
+        s[2] = false;
     }
-    cout<<fixed<<setprecision(10);
-    cout << "Metodo" << setw(11) << "x" << setw(19) << "f(x)" << setw(23) << "Iteraciones" << endl;
-    cout<<"Biseccion\t"<<x[0][0]<<"\t"<<x[0][1]<<"\t"<<x[0][2]<<endl;
-    cout<<"Punto Fijo A\t"<<x[1][0]<<"\t"<<x[1][1]<<"\t"<<x[1][2]<<endl;
-    cout<<"Punto Fijo B\t"<<x[2][0]<<"\t"<<x[2][1]<<"\t"<<x[2][2]<<endl;
 
+    try{
+        x[3] = newtonraphson(A);
+    }
+    catch(const char* e){
+        cerr << "Error en Newton-Raphson por A: " << e << endl;
+        s[3] = false;
+    }
+
+    try{
+        x[4] = newtonraphson(B);
+    }
+    catch(const char* e){
+        cerr << "Error en Newton-Raphson por B: " << e << endl;
+        s[4] = false;
+    }
+
+    try{
+        x[5] = secante();
+    }
+    catch(const char* e){
+        cerr << "Error en Secante por A: " << e << endl;
+        s[5] = false;
+    }
+
+    //Imprimir resultados
+    string methods[] = {"Biseccion", "Punto Fijo A", "Punto Fijo B", 
+                        "Newton-Raphson A", "Newton-Raphson B", 
+                        "Secante A", "Secante B"};
+
+    cout << fixed << setprecision(10);
+    cout << left << setw(20) << "Metodo" 
+         << setw(20) << "x" 
+         << setw(20) << "f(x)" 
+         << setw(20) << "Iteraciones" << endl;
+
+    for (int i = 0; i < 6; ++i) {
+        if (s[i]) {
+            cout << left << setw(20) << methods[i] 
+                 << setw(20) << x[i][0] 
+                 << setw(20) << x[i][1] 
+                 << setw(20) << x[i][2] << endl;
+        }
+    }
 
     return 0;
 }
@@ -72,7 +121,7 @@ long double* biseccion(){
         x0=c;
 
     }
-    throw "noconverge";
+    throw "No converge";
 }
 
 long double* puntofijosuma(long double x0){
@@ -89,6 +138,42 @@ long double* puntofijosuma(long double x0){
         }
         x0=x;
     }
-    throw "noconverge";
+    throw "No converge";
     }
 
+
+long double* newtonraphson(long double x0){
+    long double x;
+
+    for (int i=0;i<max_it;i++){
+        x = x0-(f(x0)/fd(x0));
+        if (abs(x-x0)<error){
+            static long double result[3];
+            result[0] = x;            // Raíz estimada
+            result[1] = f(x);         // Valor de la función en la raíz
+            result[2] = i;            // Número de iteraciones realizadas
+            return result;
+        }
+        x0=x;
+    }
+    throw "No converge";
+    }
+
+
+long double* secante(){
+    long double x0=A, x=B, x1;
+
+    for (int i=0;i<max_it;i++){
+        x1 = x0-((f(x0)*(x-x0))/(f(x)-f(x0)));
+        if (abs(x-x1)<error){
+            static long double result[3];
+            result[0] = x1;            // Raíz estimada
+            result[1] = f(x1);         // Valor de la función en la raíz
+            result[2] = i;             // Número de iteraciones realizadas
+            return result;
+        }
+        x0=x;
+        x=x1;
+    }
+    throw "No converge";
+    }
